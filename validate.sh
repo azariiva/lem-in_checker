@@ -7,7 +7,7 @@ LPATH="$HOME/goinfre/log.txt"
 ILINK="$(dirname "$0")/test-link"
 OLINK="$(dirname "$0")/out-link"
 LLINK="$(dirname "$0")/log-link"
-LEMPATH="."
+LEMPATH="$HOME/lem-in"
 
 if [ ! -f "$LEMPATH/lem-in" ]
 then
@@ -16,13 +16,13 @@ then
 fi
 if [ -z $1 ]
 then
-	echo "usage: ./script.sh [option]"
+	echo "usage: ./validate.sh [option]"
 else
 	./generator $1 > $IPATH
 	if [ -s $IPATH ]
 	then
 		rm -f $ILINK $OLINK $LLINK
-		./$LEMPATH/lem-in -i $IPATH -o $OPATH -l $LPATH
+		$LEMPATH/lem-in < $IPATH > $OPATH
 		ln -s $IPATH $ILINK
 		ln -s $OPATH $OLINK
 		ln -s $LPATH $LLINK
